@@ -16,10 +16,10 @@
             "parameters": {},
             "additionalParameters": "allowed"
           },
-          "semanticObject": "uimodule",
+          "semanticObject": "Pagos",
           "action": "display",
           "title": "Realizar Pagos",
-          "icon": "sap-icon://add"
+          "icon": "sap-icon://capital-projects"
         }
       }
     }
@@ -80,16 +80,16 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "viewPath": "profertil.realizarPagos.view",
-        "controlId": "idAppControl",
+        "controlId": "app",
         "controlAggregation": "pages",
         "async": true
       },
       "routes": [
         {
-          "name": "RouteApp",
-          "pattern": "RouteApp",
+          "name": "Home",
+          "pattern": "",
           "target": [
-            "TargetApp"
+            "home"
           ]
         }
       ],
@@ -99,6 +99,13 @@
           "viewLevel": 1,
           "viewId": "idAppControl",
           "viewName": "App"
+        },
+        "home": {
+          "viewType": "XML",
+          "viewLevel": 1,
+          "viewId": "homeView",
+          "viewName": "Home",
+          "title": "{i18n>appViewTitle}"
         }
       }
     }

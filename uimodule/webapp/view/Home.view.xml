@@ -1,0 +1,11 @@
+ <mvc:View controllerName="profertil.realizarPagos.controller.Home"
+  id="homeView"
+  displayBlock="true"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc">
+      <Page title="{i18n>title}">
+        <content>
+        <Text id="textSample" text="Hello world!"/>
+        </content>
+      </Page>
+</mvc:View>
