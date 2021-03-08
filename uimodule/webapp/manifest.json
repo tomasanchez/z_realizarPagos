@@ -16,9 +16,9 @@
             "parameters": {},
             "additionalParameters": "allowed"
           },
-          "semanticObject": "Pagos",
+          "semanticObject": "Interbanking",
           "action": "display",
-          "title": "Realizar Pagos",
+          "title": "{{appTitle}}",
           "icon": "sap-icon://capital-projects"
         }
       }

@@ -2,10 +2,71 @@
   id="homeView"
   displayBlock="true"
   xmlns="sap.m"
+  xmlns:f="sap.f"
+	xmlns:layout="sap.ui.layout"
+  xmlns:form="sap.ui.layout.form"
+	height="100%"
   xmlns:mvc="sap.ui.core.mvc">
-      <Page title="{i18n>title}">
-        <content>
-        <Text id="textSample" text="Hello world!"/>
-        </content>
-      </Page>
+  <!-- Dynamic Page -->
+	<f:DynamicPage 
+   id="dynamicPageId"
+   preserveHeaderStateOnScroll="true">
+   <!-- Dynamic Title -->
+    <f:title>
+     <f:DynamicPageTitle id="homePageTitle">
+        <f:heading>
+                <Title id="headerTitleText" text="{i18n>title}"/>
+        </f:heading>
+        <!-- Title on Mobile -->
+				<f:snappedTitleOnMobile>
+						<Title id="headerTitleTextMobile" text="{i18n>title}"/>
+				</f:snappedTitleOnMobile>
+        <!-- Title Content -->
+        <f:content>
+				</f:content>
+        <!-- Buttons Actions -->
+        <f:actions> 
+          <Button  id="payButton" type="Emphasized" text="{i18n>pay}"/>
+        </f:actions>
+      </f:DynamicPageTitle>
+    </f:title>
+    <!-- Header -->
+    <f:header>
+			<f:DynamicPageHeader id="homePageHeader" pinnable="true">
+      <VBox class="sapUiSmallMargin" id="formContainer">
+            <form:SimpleForm id="simpleForm"
+              editable="true"
+              layout="ResponsiveGridLayout"
+              title="{i18n>initialFormTitle}"
+              labelSpanXL="3"
+              labelSpanL="3"
+              labelSpanM="3"
+              labelSpanS="12"
+              adjustLabelSpan="false"
+              emptySpanXL="4"
+              emptySpanL="4"
+              emptySpanM="4"
+              emptySpanS="0"
+              columnsXL="1"
+              columnsL="1"
+              columnsM="1"
+              singleContainerFullSize="false" >
+              <form:content>
+                <Label id="amountLabel" text="{i18n>amount}"/>
+                  <StepInput id="amountInput" displayValuePrecision="2"  min="0.0001" required="true" description="ARS"/>
+                <Label id="dateLabel" text="{i18n>paymentDate}"/>
+                  <DatePicker id="paymentDP" placeholder="{i18n>datePh}" required="true" width="200px"/>
+              </form:content>
+            </form:SimpleForm>
+          </VBox>
+			</f:DynamicPageHeader>
+		</f:header>
+    <f:content>
+      <MessagePage id="emptyPage" 
+       showHeader="false" 
+       text="{i18n>messagePage}"
+       description="{i18n>messagePageText}"
+       icon="sap-icon://simple-payment"/>
+    </f:content>
+  </f:DynamicPage>
 </mvc:View>
