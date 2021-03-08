@@ -1,12 +1,10 @@
- <mvc:View controllerName="profertil.realizarPagos.controller.App"
+ <mvc:View 
+  controllerName="profertil.realizarPagos.controller.App"
   displayBlock="true"
   xmlns="sap.m"
   xmlns:mvc="sap.ui.core.mvc">
-  <App id="idAppControl" >
-    <pages>
-      <Page title="{i18n>title}">
-        <content></content>
-      </Page>
-    </pages>
-  </App>
+	<App
+		id="app"
+		busy="{appView>/busy}"
+		busyIndicatorDelay="{appView>/delay}"/>
 </mvc:View>
