@@ -10,12 +10,14 @@
   <!-- Dynamic Page -->
 	<f:DynamicPage 
    id="dynamicPageId"
+   showFooter="true"
+   toggleHeaderOnTitleClick="false"
    preserveHeaderStateOnScroll="true">
    <!-- Dynamic Title -->
     <f:title>
      <f:DynamicPageTitle id="homePageTitle">
         <f:heading>
-                <Title id="headerTitleText" text="{i18n>title}"/>
+          <Title id="headerTitleText" text="{i18n>title}"/>
         </f:heading>
         <!-- Title on Mobile -->
 				<f:snappedTitleOnMobile>
@@ -25,9 +27,7 @@
         <f:content>
 				</f:content>
         <!-- Buttons Actions -->
-        <f:actions> 
-          <!-- Pay button -->
-          <Button  id="payButton" type="Emphasized" text="{i18n>pay}" press=".onPay" enabled="{homeView>/enablePayment}"/>
+        <f:actions>
         </f:actions>
       </f:DynamicPageTitle>
     </f:title>
@@ -55,11 +55,11 @@
           singleContainerFullSize="false">
             <form:content>
               <!-- Amount -->
-              <Label id="amountLabel" text="{i18n>amount}"/>
+              <Label id="amountLabel" text="{i18n>amount}" labelFor="paymentIN"/>
               <StepInput id="paymentIN" displayValuePrecision="2"  min="0" required="true" description="ARS" change=".onPaymentChange"/>
               <!-- Date -->
-              <Label id="dateLabel" text="{i18n>paymentDate}"/>
-              <DatePicker id="paymentDP" placeholder="{i18n>datePh}" required="true" width="200px" change=".onPaymentChange"/>
+              <Label id="dateLabel" text="{i18n>paymentDate}" labelFor="paymentDP"/>
+              <DatePicker id="paymentDP" placeholder="{i18n>datePh}" required="true" width="200px" displayFormat="short" change=".onPaymentChange"/>
             </form:content>
           </form:SimpleForm>
         </VBox>
@@ -73,5 +73,13 @@
        description="{i18n>messagePageText}"
        icon="sap-icon://simple-payment"/>
     </f:content>
+    <!-- DynamicPage Footer -->
+		<f:footer>
+			<OverflowToolbar id="footerToolbar">
+				<ToolbarSpacer id="footerSpacer"/>
+				 <!-- Pay button -->
+        <Button  id="payButton" type="Emphasized" text="{i18n>pay}" press=".onPay" enabled="{homeView>/enablePayment}"/>
+			</OverflowToolbar>
+		</f:footer>
   </f:DynamicPage>
 </mvc:View>
