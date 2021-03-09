@@ -38,6 +38,7 @@ sap.ui.define(
       onInit: function () {
         oController = this;
 
+        // View model for displaying/enabling buttons
         var oViewModel = new JSONModel({
           showPaymentForm: true,
           enablePayment: false,
@@ -60,8 +61,11 @@ sap.ui.define(
        * (NOT before the first rendering! onInit() is used for that one!).
        * @memberOf com.profertil.view.Remitos
        */
-      // onBeforeRendering: function () {
-      // },
+      onBeforeRendering: function () {
+        // Initialize the date picker
+        var oDatePicker = this.byId("paymentDP");
+        oDatePicker.setDateValue(new Date());
+      },
 
       /**
        * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
