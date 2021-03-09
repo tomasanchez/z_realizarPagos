@@ -12,9 +12,10 @@ sap.ui.define(
   [
     "profertil/realizarPagos/controller/BaseController",
     "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox",
     "../model/formatter",
   ],
-  function (Controller, JSONModel, formatter) {
+  function (Controller, JSONModel, MessageBox, formatter) {
     "use strict";
     // Bind this shortcut
     var oController;
@@ -80,6 +81,100 @@ sap.ui.define(
 
       /* =========================================================== */
       /* event handlers                                              */
+      /* =========================================================== */
+
+      /**
+       * Triggered by pay button.
+       *
+       * Opens a new interface.
+       * @function
+       * @public
+       * @param {sap.ui.base.Event} oEvent the press event
+       */
+      // eslint-disable-next-line no-unused-vars
+      onPay: function (oEvent) {
+        MessageBox.error(
+          "(Error: 40040-cuentaRecaudacionId) Cuenta de Recaudación ID 0180000511000000754158 Inexistente "
+        );
+      },
+
+      /**
+       * Triggered by change event.
+       *
+       * Verifies inputs.
+       * @function
+       * @public
+       * @param {sap.ui.base.Event} oEvent the press event
+       */
+      // eslint-disable-next-line no-unused-vars
+      onPaymentChange: function (oEvent) {
+        var bDateError = this._verifyDatePicker();
+        var bInputError = this._verifyPayment();
+        this._togglePayButton(!(bDateError || bInputError));
+      },
+      /* =========================================================== */
+      /* Internal Methods                                            */
+      /* =========================================================== */
+
+      /**
+       * Toggles the 'PAY' button.
+       *
+       * Enables/Disables the model property.
+       *
+       * @function
+       * @private
+       * @param {boolean} bActive the proeprty state
+       */
+      _togglePayButton: function (bActive) {
+        var oViewModel = this.getModel("homeView");
+        oViewModel.setProperty("/enablePayment", bActive);
+      },
+
+      /**
+       * Verifies Paymet Date.
+       *
+       * Checks if a valid date has been selected.
+       *
+       * @function
+       * @private
+       * @returns {boolean} true if and error was detected
+       */
+      _verifyDatePicker: function () {
+        var oDatePicker = this.byId("paymentDP");
+
+        var dDate = oDatePicker.getDateValue();
+
+        var bError = dDate ? false : true;
+
+        oDatePicker.setValueState(bError ? "Error" : "None");
+        oDatePicker.setValueStateText(this.readFromI18n("invalidDateMSG"));
+
+        return bError;
+      },
+
+      /**
+       * Verifies Paymet Date.
+       *
+       * Checks if a valid date has been selected.
+       *
+       * @function
+       * @private
+       * @returns {boolean} true if and error was detected
+       */
+      _verifyPayment: function () {
+        var oStepInput = this.byId("paymentIN");
+
+        var fValue = oStepInput.getValue();
+
+        var bError = fValue <= 0;
+
+        oStepInput.setValueState(bError ? "Error" : "None");
+        oStepInput.setValueStateText(oController.readFromI18n("paymentGTzero"));
+
+        return bError;
+      },
+      /* =========================================================== */
+      /* End of Internal Methods                                     */
       /* =========================================================== */
     });
   }

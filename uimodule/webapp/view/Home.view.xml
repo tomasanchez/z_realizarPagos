@@ -26,7 +26,8 @@
 				</f:content>
         <!-- Buttons Actions -->
         <f:actions> 
-          <Button  id="payButton" type="Emphasized" text="{i18n>pay}"/>
+          <!-- Pay button -->
+          <Button  id="payButton" type="Emphasized" text="{i18n>pay}" press=".onPay" enabled="{homeView>/enablePayment}"/>
         </f:actions>
       </f:DynamicPageTitle>
     </f:title>
@@ -34,34 +35,38 @@
     <f:header>
 			<f:DynamicPageHeader id="homePageHeader" pinnable="true">
       <VBox class="sapUiSmallMargin" id="formContainer">
-            <form:SimpleForm id="simpleForm"
-              editable="true"
-              layout="ResponsiveGridLayout"
-              title="{i18n>initialFormTitle}"
-              labelSpanXL="3"
-              labelSpanL="3"
-              labelSpanM="3"
-              labelSpanS="12"
-              adjustLabelSpan="false"
-              emptySpanXL="4"
-              emptySpanL="4"
-              emptySpanM="4"
-              emptySpanS="0"
-              columnsXL="1"
-              columnsL="1"
-              columnsM="1"
-              singleContainerFullSize="false" >
-              <form:content>
-                <Label id="amountLabel" text="{i18n>amount}"/>
-                  <StepInput id="amountInput" displayValuePrecision="2"  min="0.0001" required="true" description="ARS"/>
-                <Label id="dateLabel" text="{i18n>paymentDate}"/>
-                  <DatePicker id="paymentDP" placeholder="{i18n>datePh}" required="true" width="200px"/>
-              </form:content>
-            </form:SimpleForm>
-          </VBox>
+        <!-- Input Form -->
+        <form:SimpleForm id="simpleForm"
+          editable="true"
+          layout="ResponsiveGridLayout"
+          title="{i18n>initialFormTitle}"
+          labelSpanXL="3"
+          labelSpanL="3"
+          labelSpanM="3"
+          labelSpanS="12"
+          adjustLabelSpan="false"
+          emptySpanXL="4"
+          emptySpanL="4"
+          emptySpanM="4"
+          emptySpanS="0"
+          columnsXL="1"
+          columnsL="1"
+          columnsM="1"
+          singleContainerFullSize="false">
+            <form:content>
+              <!-- Amount -->
+              <Label id="amountLabel" text="{i18n>amount}"/>
+              <StepInput id="paymentIN" displayValuePrecision="2"  min="0" required="true" description="ARS" change=".onPaymentChange"/>
+              <!-- Date -->
+              <Label id="dateLabel" text="{i18n>paymentDate}"/>
+              <DatePicker id="paymentDP" placeholder="{i18n>datePh}" required="true" width="200px" change=".onPaymentChange"/>
+            </form:content>
+          </form:SimpleForm>
+        </VBox>
 			</f:DynamicPageHeader>
 		</f:header>
     <f:content>
+      <!-- Empty Page -->
       <MessagePage id="emptyPage" 
        showHeader="false" 
        text="{i18n>messagePage}"
