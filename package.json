@@ -1,8 +1,9 @@
 {
-  "name": "realizarPagos",
+  "name": "interbanking",
   "version": "0.0.1",
   "scripts": {
     "start": "ui5 serve --config=uimodule/ui5.yaml  --open flpSandbox.html",
+    "release": "standard-version",
     "build:ui": "run-s  build:uimodule",
     "test": "run-s lint karma",
     "karma-ci": "karma start karma-ci.conf.js",
