@@ -90,16 +90,23 @@ sap.ui.define(
       /**
        * Triggered by pay button.
        *
-       * Opens a new interface.
+       * Navigates to Interbanking site.
        * @function
        * @public
        * @param {sap.ui.base.Event} oEvent the press event
        */
       // eslint-disable-next-line no-unused-vars
       onPay: function (oEvent) {
-        MessageBox.error(
-          "(Error: 40040-cuentaRecaudacionId) Cuenta de Recaudación ID 0180000511000000754158 Inexistente "
-        );
+        MessageBox.confirm(this.readFromI18n("paymentConfirmMSG"), {
+          title: oController.readFromI18n("paymentConfirmTitle"),
+          onClose: function (oAction) {
+            if (oAction === MessageBox.Action.OK) {
+              MessageBox.error(
+                "(Error: 40040-cuentaRecaudacionId) Cuenta de Recaudación ID 0180000511000000754158 Inexistente "
+              );
+            }
+          },
+        });
       },
 
       /**
