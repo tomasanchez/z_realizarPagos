@@ -1,6 +1,6 @@
 {
   "name": "interbanking",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "start": "ui5 serve --config=uimodule/ui5.yaml  --open flpSandbox.html",
     "release": "standard-version",
