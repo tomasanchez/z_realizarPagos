@@ -158,8 +158,15 @@ sap.ui.define(
 
         var bError = dDate ? false : true;
 
+        if (bError) dDate = new Date();
+
         oDatePicker.setValueState(bError ? "Error" : "None");
-        oDatePicker.setValueStateText(this.readFromI18n("invalidDateMSG"));
+
+        var sDate = dDate.toLocaleDateString(),
+          sFullYear = dDate.getFullYear().toString(),
+          sYear = (dDate.getFullYear() % 100).toString();
+
+        oDatePicker.setValue(sDate.replace(sFullYear, sYear));
 
         return bError;
       },
@@ -181,7 +188,6 @@ sap.ui.define(
         var bError = fValue <= 0;
 
         oStepInput.setValueState(bError ? "Error" : "None");
-        oStepInput.setValueStateText(oController.readFromI18n("paymentGTzero"));
 
         return bError;
       },
