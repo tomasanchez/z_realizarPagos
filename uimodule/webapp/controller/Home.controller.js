@@ -64,7 +64,10 @@ sap.ui.define(
       onBeforeRendering: function () {
         // Initialize the date picker
         var oDatePicker = this.byId("paymentDP");
-        oDatePicker.setDateValue(new Date());
+        var dToday = new Date();
+        oDatePicker.setDateValue(dToday);
+        oDatePicker.setMinDate(dToday);
+        oDatePicker.setMaxDate(dToday);
       },
 
       /**
@@ -229,11 +232,10 @@ sap.ui.define(
         var sDate = this.byId("paymentDP").getDateValue().toLocaleDateString();
         sBaseURL = this._attachOptionToURL(sBaseURL, "FechaPago1", sDate);
         // Payment amount
-        var sAmount = this.byId("paymentIN").getValue();
-        sBaseURL = this._attachOptionToURL(sBaseURL, "Importe1", "1234");
+        var sAmount = this.byId("paymentIN").getValue().toFixed(2).toString();
+        sBaseURL = this._attachOptionToURL(sBaseURL, "Importe1", sAmount);
         // Client number
         sBaseURL = this._attachOptionToURL(sBaseURL, "Observacion1", "100027");
-
         return sBaseURL;
       },
 
@@ -244,7 +246,6 @@ sap.ui.define(
           MessageBox.error(
             "(Error: 40040-cuentaRecaudacionId) Cuenta de Recaudación ID 0180000511000000754158 Inexistente "
           );
-
         else sap.m.URLHelper.redirect(sURL, true);
       },
 
