@@ -101,9 +101,7 @@ sap.ui.define(
           title: oController.readFromI18n("paymentConfirmTitle"),
           onClose: function (oAction) {
             if (oAction === MessageBox.Action.OK) {
-              MessageBox.error(
-                "(Error: 40040-cuentaRecaudacionId) Cuenta de Recaudación ID 0180000511000000754158 Inexistente "
-              );
+              oController._openInterbaking();
             }
           },
         });
@@ -183,6 +181,86 @@ sap.ui.define(
         oStepInput.setValueStateText(oController.readFromI18n("paymentGTzero"));
 
         return bError;
+      },
+
+      /**
+       * Generates a navigation URL.
+       *
+       * Attach options to Interbanking url.
+       * @function
+       * @private
+       * @returns {string} the URL to be redirected
+       */
+      _createURL: function () {
+        var sBaseURL =
+          "https://qasibprodpll.interbanking.com.ar/loginConfeccionB2B.do?";
+
+        // Debugging options
+        sBaseURL = this._attachOptionToURL(sBaseURL, "AtrapaErrores", "False");
+        sBaseURL = this._attachOptionToURL(sBaseURL, "OutURL");
+        sBaseURL = this._attachOptionToURL(
+          sBaseURL,
+          "CodigoComunidad",
+          "30691576511"
+        );
+        // Open new window pop-up
+        sBaseURL = this._attachOptionToURL(sBaseURL, "WindowPopUp", "False");
+        // Transactions
+        sBaseURL = this._attachOptionToURL(
+          sBaseURL,
+          "CantidadTransacciones",
+          "1"
+        );
+        sBaseURL = this._attachOptionToURL(sBaseURL, "URL");
+        // CUIT
+        sBaseURL = this._attachOptionToURL(sBaseURL, "VendedorCuit1");
+        // Account ID
+        sBaseURL = this._attachOptionToURL(
+          sBaseURL,
+          "CuentaRecaudacionId1",
+          "3250101104111080024"
+        );
+        sBaseURL = this._attachOptionToURL(
+          sBaseURL,
+          "Comprobante1",
+          "258543705"
+        );
+        // Payment Date
+        var sDate = this.byId("paymentDP").getDateValue().toLocaleDateString();
+        sBaseURL = this._attachOptionToURL(sBaseURL, "FechaPago1", sDate);
+        // Payment amount
+        var sAmount = this.byId("paymentIN").getValue();
+        sBaseURL = this._attachOptionToURL(sBaseURL, "Importe1", "1234");
+        // Client number
+        sBaseURL = this._attachOptionToURL(sBaseURL, "Observacion1", "100027");
+
+        return sBaseURL;
+      },
+
+      _openInterbaking: function () {
+        var sURL = this._createURL();
+
+        if (!sURL)
+          MessageBox.error(
+            "(Error: 40040-cuentaRecaudacionId) Cuenta de Recaudación ID 0180000511000000754158 Inexistente "
+          );
+
+        else sap.m.URLHelper.redirect(sURL, true);
+      },
+
+      /**
+       * Attachs an option to a URL.
+       *
+       * Concatenates Option=Value to a URL.
+       *
+       * @param {string} sURL the url to be modified
+       * @param {string} sOption the option to be added
+       * @param {string} sValue the corresponding option value
+       */
+      _attachOptionToURL: function (sURL, sOption, sValue = "") {
+        return sURL[sURL.length - 1] !== "?"
+          ? `${sURL}&${sOption}=${sValue}`
+          : `${sURL}${sOption}=${sValue}`;
       },
       /* =========================================================== */
       /* End of Internal Methods                                     */
