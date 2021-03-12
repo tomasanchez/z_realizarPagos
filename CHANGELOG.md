@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/tomasanchez/z_realizarPagos/compare/v0.0.2...v0.0.3) (2021-03-12)
+
+
+### Features
+
+* add interbanking navigation ([1df30d4](https://github.com/tomasanchez/z_realizarPagos/commit/1df30d424bd7a4afecaabef7edc68044e75caea1))
+
+
+### Bug Fixes
+
+* date input value ([bc5f587](https://github.com/tomasanchez/z_realizarPagos/commit/bc5f587236a30c6021f4baf0822e5016e386cde7))
+* date value validation before on change ([4e84b66](https://github.com/tomasanchez/z_realizarPagos/commit/4e84b66ebe27e7911936ae767ae5d151066826ce))
+
 ### [0.0.2](https://github.com/tomasanchez/z_realizarPagos/compare/v0.0.1...v0.0.2) (2021-03-10)
 
 
