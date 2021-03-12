@@ -56,10 +56,10 @@
             <form:content>
               <!-- Amount -->
               <Label id="amountLabel" text="{i18n>amount}" labelFor="paymentIN"/>
-              <StepInput id="paymentIN" displayValuePrecision="2"  min="0" required="true" description="ARS" change=".onPaymentChange"/>
+              <StepInput id="paymentIN" displayValuePrecision="2"  min="0" required="true" description="ARS" change=".onPaymentChange" valueStateText="{i18n>paymentGTzero}"/>
               <!-- Date -->
               <Label id="dateLabel" text="{i18n>paymentDate}" labelFor="paymentDP"/>
-              <DatePicker id="paymentDP" placeholder="{i18n>datePh}" required="true" width="200px" displayFormat="short" change=".onPaymentChange"/>
+              <DatePicker id="paymentDP" placeholder="{i18n>datePh}" required="true" width="200px" displayFormat="short" change=".onPaymentChange" valueStateText="{i18n>invalidDateMSG}"/>
             </form:content>
           </form:SimpleForm>
         </VBox>
