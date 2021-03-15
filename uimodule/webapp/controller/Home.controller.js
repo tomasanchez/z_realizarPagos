@@ -245,6 +245,14 @@ sap.ui.define(
         return sBaseURL;
       },
 
+      /**
+       * Redirects URL to interbanking.
+       *
+       * Sends input to interbanking.
+       *
+       * @function
+       * @private
+       */
       _openInterbaking: function () {
         var sURL = this._createURL();
 
@@ -252,7 +260,7 @@ sap.ui.define(
           MessageBox.error(
             "(Error: 40040-cuentaRecaudacionId) Cuenta de Recaudación ID 0180000511000000754158 Inexistente "
           );
-        else sap.m.URLHelper.redirect(sURL, true);
+        else sap.m.URLHelper.redirect(sURL);
       },
 
       /**
