@@ -19,6 +19,7 @@
           "semanticObject": "Interbanking",
           "action": "display",
           "title": "{{appTitle}}",
+          "subTitle": "{{appSubTitle}}",
           "icon": "sap-icon://capital-projects"
         }
       }
