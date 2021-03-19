@@ -23,6 +23,16 @@
           "icon": "sap-icon://capital-projects"
         }
       }
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "sap/opu/odata/sap/ZSV_CTA_CORRIENTE_SRV/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -67,6 +77,16 @@
         "settings": {
           "bundleName": "profertil.realizarPagos.i18n.i18n"
         }
+      },
+      "": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+          "defaultOperationMode": "Server",
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "preload": true
+        },
+        "dataSource": "mainService"
       }
     },
     "resources": {
@@ -89,9 +109,7 @@
         {
           "name": "Home",
           "pattern": "",
-          "target": [
-            "home"
-          ]
+          "target": ["home"]
         }
       ],
       "targets": {
