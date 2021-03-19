@@ -198,9 +198,10 @@ sap.ui.define(
        * Attach options to Interbanking url.
        * @function
        * @private
+       * @param {object} oData the entity read
        * @returns {string} the URL to be redirected
        */
-      _createURL: function () {
+      _createURL: function (oData) {
         var sBaseURL =
           "https://qasibprodpll.interbanking.com.ar/loginConfeccionB2B.do?";
 
@@ -232,7 +233,7 @@ sap.ui.define(
         sBaseURL = this._attachOptionToURL(
           sBaseURL,
           "Comprobante1",
-          "258543705"
+          Math.round(Math.random() * 32767)
         );
         // Payment Date
         var sDate = this.byId("paymentDP").getDateValue().toLocaleDateString();
@@ -241,7 +242,11 @@ sap.ui.define(
         var sAmount = this.byId("paymentIN").getValue().toFixed(2).toString();
         sBaseURL = this._attachOptionToURL(sBaseURL, "Importe1", sAmount);
         // Client number
-        sBaseURL = this._attachOptionToURL(sBaseURL, "Observacion1", "100027");
+        sBaseURL = this._attachOptionToURL(
+          sBaseURL,
+          "Observacion1",
+          oData.Cliente
+        );
         return sBaseURL;
       },
 
@@ -254,13 +259,30 @@ sap.ui.define(
        * @private
        */
       _openInterbaking: function () {
-        var sURL = this._createURL();
+        var oModel = this.getModel();
+        var oView = oController.getView();
 
-        if (!sURL)
-          MessageBox.error(
-            "(Error: 40040-cuentaRecaudacionId) Cuenta de Recaudación ID 0180000511000000754158 Inexistente "
-          );
-        else sap.m.URLHelper.redirect(sURL);
+        oView.setBusy(true);
+
+        var sPath = oModel.createKey("/InterbankingSet", {
+          Cliente: "customer",
+        });
+
+        oModel.read(sPath, {
+          success: function (oData) {
+            var sURL = oController._createURL(oData);
+            oView.setBusy(false);
+            if (!sURL)
+              MessageBox.error(
+                "(Error: 40040-cuentaRecaudacionId) ID Inexistente "
+              );
+            else sap.m.URLHelper.redirect(sURL);
+          },
+          error: function (oResponse) {
+            oView.setBusy(false);
+            MessageBox.error(oResponse);
+          },
+        });
       },
 
       /**
